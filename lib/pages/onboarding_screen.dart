@@ -37,19 +37,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
+  double widgetWidthToLeave(context, percentage) {
+    double width = MediaQuery.of(context).size.width;
+    return width - (width * percentage);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFAF4),
       body: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            const SizedBox(height: 45),
-            Center(
-              child: Column(
+        padding:
+            const EdgeInsets.only(top: 55, bottom: 10, left: 10, right: 10),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Dot Indicator for onboarding Pager
+              Column(
                 children: [
-                  // Dot Indicator for onboarding Pager
                   DotsIndicator(
                     dotsCount: 4,
                     position: _currentPage,
@@ -117,16 +123,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 45),
+                ],
+              ),
 
-                  // buttons below
+              // buttons below
+              Column(
+                children: [
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: Color(0xFFEEEEEE),
+                          style: BorderStyle.solid,
+                        ),
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        minimumSize: const Size(300, 48)),
+                        minimumSize:
+                            Size(widgetWidthToLeave(context, 0.15), 48)),
                     onPressed: () {},
                     child: const Text(
                       "Create an account",
@@ -136,16 +150,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           color: Colors.black),
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
                   FilledButton(
                     style: FilledButton.styleFrom(
                         backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        minimumSize: const Size(300, 48)),
+                        minimumSize:
+                            Size(widgetWidthToLeave(context, 0.15), 48)),
                     onPressed: () {},
                     child: const Text(
                       "Login",
@@ -157,8 +170,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ],
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
