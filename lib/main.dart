@@ -1,4 +1,5 @@
 import 'package:accrue_clone/pages/splash_screen.dart';
+import 'package:accrue_clone/utilities/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        colorScheme: ColorScheme.fromSeed(seedColor: mainThemeColor),
         useMaterial3: true,
       ),
       home: const SplashScreen(),
