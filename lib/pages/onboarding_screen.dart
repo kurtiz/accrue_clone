@@ -1,6 +1,11 @@
+import 'package:accrue_clone/utilities/theme_colors.dart';
 import 'package:accrue_clone/widgets/onboarding_pager.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+
+import '../utilities/shared_functions.dart';
+import '../widgets/login_sheet.dart';
+import '../widgets/signup_sheet.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -37,18 +42,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  double widgetWidthToLeave(context, percentage) {
-    double width = MediaQuery.of(context).size.width;
-    return width - (width * percentage);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFAF4),
+      backgroundColor: mainThemeColor,
       body: Container(
         padding:
-            const EdgeInsets.only(top: 55, bottom: 10, left: 10, right: 10),
+            const EdgeInsets.only(top: 55, bottom: 30, left: 10, right: 10),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,7 +132,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
                         side: const BorderSide(
-                          color: Color(0xFFEEEEEE),
+                          color: secondaryBorderColor,
                           style: BorderStyle.solid,
                         ),
                         backgroundColor: Colors.white,
@@ -141,7 +141,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         minimumSize:
                             Size(widgetWidthToLeave(context, 0.15), 48)),
-                    onPressed: () {},
+                    onPressed: () {
+                      _showSignUpBottomSheet(context);
+                    },
                     child: const Text(
                       "Create an account",
                       style: TextStyle(
@@ -159,13 +161,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         minimumSize:
                             Size(widgetWidthToLeave(context, 0.15), 48)),
-                    onPressed: () {},
+                    onPressed: () {
+                      _showLoginBottomSheet(context);
+                    },
                     child: const Text(
                       "Login",
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
-                          color: Colors.white),
+                          color: Colors.white
+                      ),
                     ),
                   ),
                 ],
@@ -177,3 +182,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+
+void _showSignUpBottomSheet(context) {
+  showModalBottomSheet(
+    backgroundColor: const Color(0xFFFFFAF4),
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return const SignUpSheet();
+      });
+}
+
+void _showLoginBottomSheet(context) {
+  showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return const LoginSheet();
+      });
+}
+
